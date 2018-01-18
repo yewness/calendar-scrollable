@@ -1,10 +1,14 @@
-var eventSource = {
-  url: '/events.json',
-  textColor: 'white'
+function eventSource(date) {
+  return {
+    url: '/events.json?start_date=' + setDate(date),
+    textColor: 'white'
+  }
 }
-var holidaySource = {
-  url: '/holidays.json',
-  textColor: 'white'
+function holidaySource(date) {
+  return {
+    url: '/holidays.json?start_date=' + setDate(date),
+    textColor: 'white'
+  }
 }
 
 function getRequirement(date) {
@@ -18,8 +22,8 @@ function getRequirement(date) {
     firstDay: 1,
     selectable: true,
     eventSources: [
-      eventSource,
-      holidaySource
+      eventSource(date),
+      holidaySource(date)
     ]
   }
 }

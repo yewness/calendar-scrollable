@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 date = Time.zone.now
+Event.find_or_create_by(name: Faker::Name.title, start_date: date - 3.month)
+Event.find_or_create_by(name: Faker::Name.title, start_date: date - 3.month)
+Event.find_or_create_by(name: Faker::Name.title, start_date: date - 2.month)
+Event.find_or_create_by(name: Faker::Name.title, start_date: date - 1.month)
 Event.find_or_create_by(name: "Event 1", start_date: date, end_date: date + 1.hour)
 Event.find_or_create_by(name: "Event 2", start_date: date + 1.day, end_date: date + 1.day + 1.hour)
 Event.find_or_create_by(name: "Event 3", start_date: date + 2.day, end_date: date + 2.day + 1.hour)
