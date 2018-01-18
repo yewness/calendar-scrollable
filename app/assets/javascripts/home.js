@@ -7,56 +7,60 @@ var holidaySource = {
   textColor: 'white'
 }
 
-var requirement = {
-  header: {
-    left: 'title',
-    right: ''
-  },
-  fixedWeekCount: false,
-  firstDay: 1,
-  // eventOverlap: false,
-  eventSources: [
-    eventSource,
-    holidaySource
-  ]
+function getRequirement(date) {
+  return {
+    header: {
+      left: 'title',
+      right: ''
+    },
+    defaultDate: setDate(date),
+    fixedWeekCount: false,
+    firstDay: 1,
+    selectable: true,
+    eventSources: [
+      eventSource,
+      holidaySource
+    ]
+  }
+}
+
+function isValidDate(date) {
+  var bits = (date + '').split('/');
+  var d = new Date(bits[2] + '/' + bits[1] + '/' + bits[0]);
+  return !!(d && (d.getMonth() + 1) == bits[1] && d.getDate() == Number(bits[0]));
+}
+
+function setDate(date) {
+  console.log(date)
+  if (isValidDate(date)) {
+    return moment(date, 'DD/MM/YYYY', true).format();
+  } else {
+    return new Date();
+  }
 }
 
 function init() {
-  $('.home-calendar').fullCalendar(requirement)
+  $('.home-calendar').fullCalendar(getRequirement())
 }
 
 function bindCalendar() {
   var dataCalendar = $('.calendar-overflow')
   dataCalendar.scroll(function() {
     // check the position of the calendar
-    if ($(this).scrollTop() == 0) {
-      console.log($('.calendar-overflow .calendar:nth-child(1)'))
-      $('.calendar-overflow .home-calendar:nth-child(1)').prepend( "<p class=test>Test</p>" );
-      // $('.test').fullCalendar(requirement).fullCalendar('prev');
+    if ($(this).scrollTop() < 40) {
+      firstCalenDate = $('.home-calendar:first-child').fullCalendar("getView").intervalStart.format();
+      prevDate = moment(firstCalenDate).subtract(1, 'M').format('DD/MM/YYYY');
+      $(this).prepend("<div class='home-calendar'></div>");
+      $(this).find('.home-calendar:first-child').fullCalendar(getRequirement(prevDate));
     }
 
     if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-      console.log($('.calendar-overflow .calendar:last-child'))
-      $('.calendar-overflow .home-calendar:last-child').append( "<p class=test>Test</p>" );
-      // dataCalendar.append( "<p class=test>Test</p>" );
-      // $('.test').fullCalendar(requirement).fullCalendar('next');
+      lastCalenDate = $('.home-calendar:last-child').fullCalendar("getView").intervalStart.format();
+      nextDate = moment(lastCalenDate).add(1, 'M').format('DD/MM/YYYY');
+      $(this).append("<div class='home-calendar'></div>");
+      $(this).find('.home-calendar:last-child').fullCalendar(getRequirement(nextDate));
     }
-    // if scroll below is the last child of the calendar, append a new calendar class down and go the the next month
-
-
-    // if it's scrolling to the top, check the first child of the calendar, append a new calendar class on top and go the prev month
   })
-  // $('".fc-scroller:nth-child(1)"').bind('scroll', function(event) {
-  //   console.log($(this).scrollLeft()+" --- "+$(this).innerWidth()+" --- "+$(this)[0].scrollWidth);
-  //   if($(this).scrollLeft() <= 0) {
-  //     //left scroll : end reached
-  //     $('#calendar').fullCalendar('prev');
-  //   }
-  //   if($(this).scrollLeft() + $(this).innerWidth() >= $(this)[0].scrollWidth) {
-  //     //right scroll : end reached
-  //     $('#calendar').fullCalendar('next');
-  //   }
-  // });
   console.log("after bind");
 }
 
