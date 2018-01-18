@@ -1,0 +1,23 @@
+<div class='container py-5'>
+  <div class='display-4'>Full Calendar</div>
+  <%= link_to 'Back', root_path, class: 'btn' %>
+  <div class="py-2">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter Event
+      </button>
+      <div class="dropdown-menu">
+        <div class="text-center p-2">
+          <button class="btn btn-outline-dark btn-block" data='events' id="events">Events</button>
+        </div>
+        <div class="text-center p-2">
+          <button class="btn btn-outline-dark btn-block" id="holidays">Holidays</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='calendar-overflow p-1'>
+    <div class="home-calendar"></div>
+  </div>
+  <%= link_to 'hello', events_path, class: 'pagination__next' %>
+</div>

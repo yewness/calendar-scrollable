@@ -1,0 +1,16 @@
+// .bg-calendar {
+//   background-image: linear-gradient(300deg,#03eefd,#0286bd 18%,#0280b9 20%,#027ab5 23%,#0172b0 25%,#0165a8 29%,#014e9a 40%,#014293 49%,#01358a 63%,#013188 71%,#013087 76%,#012883 86%,#011b7a 95%,#011b7a)!important;
+// }
+
+// .fc-today {
+//   color: white;
+//   background: #014293 !important;
+//   border: none !important;
+//   border-top: 1px solid #ddd !important;
+//   font-weight: bold;
+// }
+
+.calendar-overflow {
+  overflow-y: scroll;
+  height: 350px;
+}
